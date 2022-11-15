@@ -1,0 +1,327 @@
+openapi: 3.0.0
+info:
+  title: API AZIZI
+  description: testing api
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: azizimukmin8@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+paths:
+  /settings:
+    patch:
+      tags:
+        - settings
+      summary: Setting type dari overtime method
+      description: ""
+      operationId: patchSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - key
+                - value
+              properties:
+                key:
+                  type: string
+                  default: overtime_method
+                value:
+                  type: string
+                  default: "1"
+        description: set value
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: success
+                  message:
+                    type: string
+                    default: Data updated!
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: Key is not found in references!
+        "500":
+          description: "Internal Server Error "
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: "Internal Server Error "
+                  data:
+                    default: "[]"
+  /employees:
+    post:
+      tags:
+        - employees
+      summary: Insert data employees
+      description: ""
+      operationId: postEmployees
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - salary
+              properties:
+                name:
+                  type: string
+                  default: Azizi Mukmin
+                salary:
+                  type: integer
+                  default: 4000000
+        description: set value
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: success
+                  message:
+                    type: string
+                    default: Data created!
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        salary:
+                          type: integer
+        "400":
+          description: Bad Request!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: Name already exist!
+        "500":
+          description: Request required!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: Request required!
+                  data:
+                    default: "[]"
+  /overtimes:
+    post:
+      tags:
+        - overtimes
+      summary: Insert data overtimes
+      description: ""
+      operationId: postOvertimes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - employee_id
+                - date
+                - time_started
+                - time_ended
+              properties:
+                employee_id:
+                  type: string
+                  default: "1"
+                date:
+                  type: string
+                  default: 2022-10-11
+                time_started:
+                  type: string
+                  default: 13:00
+                time_ended:
+                  type: string
+                  default: 16:45
+        description: set value
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: success
+                  message:
+                    type: string
+                    default: Data created!
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        employee_id:
+                          type: string
+                          default: "1"
+                        date:
+                          type: string
+                          default: 2022-10-11
+                        time_started:
+                          type: string
+                          default: 13:00
+                        time_ended:
+                          type: string
+                          default: 16:45
+        "400":
+          description: Bad Request!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: Overtime today already exist for employee!
+        "500":
+          description: Request required!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: Request required!
+                  data:
+                    default: "[]"
+  /overtime-pay/calculate:
+    post:
+      tags:
+        - overtime-pay
+      summary: calculate overtimes
+      description: ""
+      operationId: getOvertimes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - month
+              properties:
+                month:
+                  type: string
+                  default: 2022-10
+        description: set value
+        required: true
+      responses:
+        "200":
+          description: Calculate overtimes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: success
+                  message:
+                    type: string
+                    default: Success calculate overtimes!
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          default: "1"
+                        name:
+                          type: string
+                          default: Azizi Mukmin
+                        salary:
+                          type: integer
+                          default: 4000000
+                        overtimes:
+                          type: string
+                          default: "[]"
+                        overtime_duration_total:
+                          type: integer
+                          default: 6
+                        amount:
+                          type: integer
+                          default: 69364
+        "500":
+          description: Request required!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    default: fail
+                  message:
+                    type: string
+                    default: Request required!
+                  data:
+                    default: "[]"
+servers:
+  - url: /api/v1
